@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package lab7prograii_carlosnoe;
+//Hacer las validaciones con regex
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -10,11 +11,28 @@ package lab7prograii_carlosnoe;
  */
 public class New1 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form New1
-     */
+    public ArrayList<Producto> Products = new ArrayList();
+    private File archivo = null;
+
     public New1() {
         initComponents();
+        this.pack();
+    }
+
+    public void cargarArchivo() {
+        Scanner sc = null;
+        Products = new ArrayList();
+        if (archivo.exists()) {
+            try {
+                sc = new Scanner(archivo);
+                sc.useDelimiter(",");
+                while (sc.hasNext()) {
+                    Products.add(new Producto(sc.nextInt(), sc.nextLine(), sc.nextInt(), sc.nextDouble(), sc.nextInt(), sc.nextInt()));
+                }
+            } catch (Exception ex) {
+            }
+            sc.close();
+        }
     }
 
     /**

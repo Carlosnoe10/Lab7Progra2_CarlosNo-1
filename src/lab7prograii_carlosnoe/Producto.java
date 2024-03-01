@@ -70,5 +70,8 @@ public class Producto {
         return ID + "," + Nombre + "," + Category + "," + Price + "," + Aisle + "," + Bin + '}';
     }
     
-    
+    public void ValidacionCategory(int Valor){
+        
+        
+    }
 }
