@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -132,7 +134,7 @@ public class New1 extends javax.swing.JFrame {
     }
 
     public void puntoRefresh() {
-
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -286,7 +288,11 @@ public class New1 extends javax.swing.JFrame {
             puntoLoad(spliteo[1]);
         } else if (spliteo[0].equalsIgnoreCase("./create")) {
             System.out.println(spliteo[1]);
-            puntoCreate(spliteo[1]);
+            try {
+                puntoCreate(spliteo[1]);
+            } catch (IOException ex) {
+                Logger.getLogger(New1.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (spliteo[0].equalsIgnoreCase("./clear")) {
             puntoClear();
         } else if ((spliteo[0].equalsIgnoreCase("./refresh"))) {
