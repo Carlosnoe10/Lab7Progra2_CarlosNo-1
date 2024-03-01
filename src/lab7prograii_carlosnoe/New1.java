@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -30,8 +31,8 @@ public class New1 extends javax.swing.JFrame {
         LlenarArbol();
     }
 
+    
     public void LlenarArbol() {
-
         DefaultMutableTreeNode Archivos = new DefaultMutableTreeNode("Archivos");
         File Mont = new File("./");
         listar_no_orden(Mont, Archivos);
@@ -134,7 +135,7 @@ public class New1 extends javax.swing.JFrame {
     }
 
     public void puntoRefresh() {
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -144,8 +145,8 @@ public class New1 extends javax.swing.JFrame {
         SubMenu1Tabla = new javax.swing.JPopupMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         SubMenu2Arbol = new javax.swing.JPopupMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        JPopMenu_Loadfile = new javax.swing.JMenuItem();
+        JPopMenu_Refresh = new javax.swing.JMenuItem();
         JTF_Escritor = new javax.swing.JTextField();
         JBT_Enter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -168,11 +169,16 @@ public class New1 extends javax.swing.JFrame {
         jMenuItem8.setText("Clear Table");
         SubMenu1Tabla.add(jMenuItem8);
 
-        jMenuItem9.setText("Load File");
-        SubMenu2Arbol.add(jMenuItem9);
+        JPopMenu_Loadfile.setText("Load File");
+        JPopMenu_Loadfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JPopMenu_LoadfileActionPerformed(evt);
+            }
+        });
+        SubMenu2Arbol.add(JPopMenu_Loadfile);
 
-        jMenuItem10.setText("Refresh Trees");
-        SubMenu2Arbol.add(jMenuItem10);
+        JPopMenu_Refresh.setText("Refresh Trees");
+        SubMenu2Arbol.add(JPopMenu_Refresh);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,6 +189,11 @@ public class New1 extends javax.swing.JFrame {
             }
         });
 
+        JTree_ListarArchivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTree_ListarArchivosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTree_ListarArchivos);
 
         JT_ListaDeProductos.setModel(new javax.swing.table.DefaultTableModel(
@@ -322,6 +333,21 @@ public class New1 extends javax.swing.JFrame {
         LlenarTabla0();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void JTree_ListarArchivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTree_ListarArchivosMouseClicked
+        if (evt.isMetaDown()) {
+            System.out.println(evt.getX() + " " + evt.getY());
+            SubMenu2Arbol.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_JTree_ListarArchivosMouseClicked
+
+    private void JPopMenu_LoadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPopMenu_LoadfileActionPerformed
+        DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) JTree_ListarArchivos.getSelectionPath().getLastPathComponent();
+        String zero = nodoSeleccionado.getUserObject().toString();
+        File patthing = new File(zero);
+        cargarArchivo(patthing);
+        LlenarTablar();
+    }//GEN-LAST:event_JPopMenu_LoadfileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -359,6 +385,8 @@ public class New1 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBT_Enter;
+    private javax.swing.JMenuItem JPopMenu_Loadfile;
+    private javax.swing.JMenuItem JPopMenu_Refresh;
     private javax.swing.JTextField JTF_Escritor;
     private javax.swing.JTable JT_ListaDeProductos;
     private javax.swing.JTree JTree_ListarArchivos;
@@ -370,7 +398,6 @@ public class New1 extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -378,7 +405,6 @@ public class New1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
