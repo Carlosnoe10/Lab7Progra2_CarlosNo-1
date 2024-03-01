@@ -1,9 +1,17 @@
 package lab7prograii_carlosnoe;
 //Hacer las validaciones con regex
 
+import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 /**
  *
@@ -16,10 +24,59 @@ public class New1 extends javax.swing.JFrame {
     public New1() {
         initComponents();
         this.pack();
+        LlenarTabla0();
+        LlenarArbol();
+    }
+
+    public void LlenarArbol() {
+
+        DefaultMutableTreeNode Archivos = new DefaultMutableTreeNode("Archivos");
+        File Mont = new File("./");
+        listar_no_orden(Mont, Archivos);
+        JTree_ListarArchivos.setModel(new DefaultTreeModel(Archivos));
+        FileNameExtensionFilter a = new FileNameExtensionFilter("Archivo", ".txt");
+    }
+
+    public void listar_no_orden(File p_raiz, DefaultMutableTreeNode nodo) {
+        try {
+            for (File temp : p_raiz.listFiles()) {
+                if (temp.isFile()) {
+                    if (temp.getName().endsWith(".txt")) {
+
+                        DefaultMutableTreeNode n = new DefaultMutableTreeNode(
+                                temp.getName());
+                        nodo.add(n);
+                    }
+                } else {
+                    if (temp.getName().endsWith(".txt")) {
+                        DefaultMutableTreeNode n = new DefaultMutableTreeNode(
+                                temp.getName());
+                        nodo.add(n);
+                        listar_no_orden(temp, n);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void LlenarTabla0() {
+        javax.swing.table.DefaultTableModel MODELITO = new javax.swing.table.DefaultTableModel();
+        MODELITO.addColumn("ID");
+        MODELITO.addColumn("NOMBRE");
+        MODELITO.addColumn("CATEGORY");
+        MODELITO.addColumn("PRICE");
+        MODELITO.addColumn("AISLE");
+        MODELITO.addColumn("BIN");
+        String Zero = " ";
+        MODELITO.addRow(
+                new Object[]{
+                    Zero, Zero, Zero, Zero, Zero, Zero
+                });
+        JT_ListaDeProductos.setModel(MODELITO);
     }
 
     public void LlenarTablar() {
-
         javax.swing.table.DefaultTableModel MODELITO = new javax.swing.table.DefaultTableModel();
         MODELITO.addColumn("ID");
         MODELITO.addColumn("NOMBRE");
@@ -34,9 +91,7 @@ public class New1 extends javax.swing.JFrame {
                         Products.get(i).getPrice(), Products.get(i).getAisle(), Products.get(i).getBin()
                     });
         }
-
         JT_ListaDeProductos.setModel(MODELITO);
-
     }
 
     public void cargarArchivo(File archivo) {
@@ -59,8 +114,17 @@ public class New1 extends javax.swing.JFrame {
 
     }
 
-    public void puntoCreate(String Pathing) {
-
+    public void puntoCreate(String Pathing) throws IOException {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(Pathing, false);
+            bw = new BufferedWriter(fw);
+            bw.flush();
+        } catch (Exception ex) {
+        }
+        bw.close();
+        fw.close();
     }
 
     public void puntoClear() {
@@ -83,7 +147,7 @@ public class New1 extends javax.swing.JFrame {
         JTF_Escritor = new javax.swing.JTextField();
         JBT_Enter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        JTree_ListarArchivos = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
         JT_ListaDeProductos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -117,7 +181,7 @@ public class New1 extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane1.setViewportView(JTree_ListarArchivos);
 
         JT_ListaDeProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,9 +191,14 @@ public class New1 extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "NAME", "CATEGORY", "Title 4"
             }
         ));
+        JT_ListaDeProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JT_ListaDeProductosKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(JT_ListaDeProductos);
 
         jMenu1.setText("File");
@@ -155,6 +224,11 @@ public class New1 extends javax.swing.JFrame {
         jMenu4.add(jMenuItem1);
 
         jMenuItem2.setText("Clear Table");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenu2.add(jMenu4);
@@ -226,6 +300,22 @@ public class New1 extends javax.swing.JFrame {
         JTF_Escritor.setText("");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void JT_ListaDeProductosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JT_ListaDeProductosKeyPressed
+        if (evt.getKeyCode() == 10) {
+            javax.swing.table.DefaultTableModel MODELITO = (javax.swing.table.DefaultTableModel) JT_ListaDeProductos.getModel();
+            String Zero = " ";
+            MODELITO.addRow(
+                    new Object[]{
+                        Zero, Zero, Zero, Zero, Zero, Zero
+                    });
+            JT_ListaDeProductos.setModel(MODELITO);
+        }
+    }//GEN-LAST:event_JT_ListaDeProductosKeyPressed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        LlenarTabla0();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +355,7 @@ public class New1 extends javax.swing.JFrame {
     private javax.swing.JButton JBT_Enter;
     private javax.swing.JTextField JTF_Escritor;
     private javax.swing.JTable JT_ListaDeProductos;
+    private javax.swing.JTree JTree_ListarArchivos;
     private javax.swing.JPopupMenu SubMenu1Tabla;
     private javax.swing.JPopupMenu SubMenu2Arbol;
     private javax.swing.JMenu jMenu1;
@@ -284,6 +375,5 @@ public class New1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
