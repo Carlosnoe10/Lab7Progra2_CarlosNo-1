@@ -12,14 +12,13 @@ import java.util.Scanner;
 public class New1 extends javax.swing.JFrame {
 
     public ArrayList<Producto> Products = new ArrayList();
-    private File archivo = null;
 
     public New1() {
         initComponents();
         this.pack();
     }
 
-    public void cargarArchivo() {
+    public void cargarArchivo(File archivo) {
         Scanner sc = null;
         Products = new ArrayList();
         if (archivo.exists()) {
@@ -49,8 +48,8 @@ public class New1 extends javax.swing.JFrame {
         SubMenu2Arbol = new javax.swing.JPopupMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        JTF_Escritor = new javax.swing.JTextField();
+        JBT_Enter = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -79,7 +78,12 @@ public class New1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Enter");
+        JBT_Enter.setText("Enter");
+        JBT_Enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBT_EnterActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(jTree1);
 
@@ -140,9 +144,9 @@ public class New1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JTF_Escritor, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(JBT_Enter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -152,8 +156,8 @@ public class New1 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(JBT_Enter, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(JTF_Escritor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
@@ -162,6 +166,24 @@ public class New1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JBT_EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBT_EnterActionPerformed
+
+        String FILEE = JTF_Escritor.getText();
+        String[] spliteo = FILEE.split(" ");
+        if (spliteo[0].equalsIgnoreCase("./load")) {
+            System.out.println(spliteo[1]);
+        } else if (spliteo[0].equalsIgnoreCase("./create")) {
+            System.out.println(spliteo[1]);
+        }else if (spliteo[0].equalsIgnoreCase("./clear")){
+            
+        }else if ((spliteo[0].equalsIgnoreCase(""))) {
+            
+        }
+
+
+
+    }//GEN-LAST:event_JBT_EnterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,9 +221,10 @@ public class New1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBT_Enter;
+    private javax.swing.JTextField JTF_Escritor;
     private javax.swing.JPopupMenu SubMenu1Tabla;
     private javax.swing.JPopupMenu SubMenu2Arbol;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -220,7 +243,6 @@ public class New1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
