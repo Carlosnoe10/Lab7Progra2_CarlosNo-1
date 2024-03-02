@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -97,6 +98,26 @@ public class New1 extends javax.swing.JFrame {
         JT_ListaDeProductos.setModel(MODELITO);
     }
 
+    public void escribirArchivo(File p_raiz) throws IOException {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(p_raiz, false);
+            bw = new BufferedWriter(fw);
+            for (Producto t : Products) {
+                bw.write(t.getID() + ",");
+                bw.write(t.getNombre() + ",");
+                bw.write(t.getPrice() + ",");
+                bw.write(t.getAisle() + ",");
+                bw.write(t.getBin() + ",");
+            }
+            bw.flush();
+        } catch (Exception ex) {
+        }
+        bw.close();
+        fw.close();
+    }
+
     public void cargarArchivo(File archivo) {
         Scanner sc = null;
         Products = new ArrayList();
@@ -105,7 +126,7 @@ public class New1 extends javax.swing.JFrame {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(",");
                 while (sc.hasNext()) {
-                    Products.add(new Producto(sc.nextInt(), sc.nextLine(), sc.nextInt(), sc.nextDouble(), sc.nextInt(), sc.nextInt()));
+                    Products.add(new Producto(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine()));
                 }
             } catch (Exception ex) {
             }
@@ -357,9 +378,19 @@ public class New1 extends javax.swing.JFrame {
         TableModel Table = JT_ListaDeProductos.getModel();
         Products = new ArrayList();
         for (int i = 0; i < Table.getRowCount(); i++) {
-            Products.add(new Producto(((int) Table.getValueAt(i, 0)), Table.getValueAt(i, 1).toString(), ((int) Table.getValueAt(i, 2)), Double.parseDouble(Table.getValueAt(i, 3).toString()), ((int) Table.getValueAt(i, 4)), ((int) Table.getValueAt(i, 5))));
+            Products.add(new Producto(Table.getValueAt(i, 0).toString(),
+                     Table.getValueAt(i, 1).toString(),
+                    Table.getValueAt(i, 2).toString(),
+                    Table.getValueAt(i, 3).toString(),
+                    Table.getValueAt(i, 4).toString(),
+                    Table.getValueAt(i, 5).toString()));
         }
-
+        File archivonuevo = new File(JOptionPane.showInputDialog(this, "Ingrese un nombre") + ".txt");
+        try {
+            escribirArchivo(archivonuevo);
+        } catch (IOException ex) {
+            Logger.getLogger(New1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**

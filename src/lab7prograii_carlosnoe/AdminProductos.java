@@ -32,4 +32,9 @@ public class AdminProductos {
         this.Products.add(p);
     }
 
+    @Override
+    public String toString() {
+        return "Products= " + Products;
+    }
+
 }

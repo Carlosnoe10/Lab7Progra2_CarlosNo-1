@@ -1,14 +1,14 @@
 package lab7prograii_carlosnoe;
 
 public class Producto {
-    public int ID;
+    public String ID;
     public String Nombre;
-    public int Category;
-    public double Price;       
-    public int Aisle;
-    public int Bin;
+    public String Category;
+    public String Price;       
+    public String Aisle;
+    public String Bin;
 
-    public Producto(int ID, String Nombre, int Category, double Price, int Aisle, int Bin) {
+    public Producto(String ID, String Nombre, String Category, String Price, String Aisle, String Bin) {
         this.ID = ID;
         this.Nombre = Nombre;
         this.Category = Category;
@@ -17,11 +17,11 @@ public class Producto {
         this.Bin = Bin;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -33,37 +33,39 @@ public class Producto {
         this.Nombre = Nombre;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return Category;
     }
 
-    public void setCategory(int Category) {
+    public void setCategory(String Category) {
         this.Category = Category;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return Price;
     }
 
-    public void setPrice(double Price) {
+    public void setPrice(String Price) {
         this.Price = Price;
     }
 
-    public int getAisle() {
+    public String getAisle() {
         return Aisle;
     }
 
-    public void setAisle(int Aisle) {
+    public void setAisle(String Aisle) {
         this.Aisle = Aisle;
     }
 
-    public int getBin() {
+    public String getBin() {
         return Bin;
     }
 
-    public void setBin(int Bin) {
+    public void setBin(String Bin) {
         this.Bin = Bin;
     }
+
+   
 
     @Override
     public String toString() {
