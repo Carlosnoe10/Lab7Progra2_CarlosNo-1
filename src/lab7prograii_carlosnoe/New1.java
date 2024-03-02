@@ -135,28 +135,50 @@ public class New1 extends javax.swing.JFrame {
     }
 
     public void puntoLoad(String Pathing) {
-
+        Scanner sc = null;
+        Products = new ArrayList();
+        File omo = new File(Pathing);
+        if (omo.exists()) {
+            try {
+                sc = new Scanner(omo);
+                sc.useDelimiter(",");
+                while (sc.hasNext()) {
+                    Products.add(new Producto(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine()));
+                }
+            } catch (Exception ex) {
+            }
+            sc.close();
+        }
     }
 
     public void puntoCreate(String Pathing) throws IOException {
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        try {
-            fw = new FileWriter(Pathing, false);
-            bw = new BufferedWriter(fw);
-            bw.flush();
-        } catch (Exception ex) {
+        File novo = new File(Pathing);
+        if (novo.exists()) {
+            TableModel Table = JT_ListaDeProductos.getModel();
+            Products = new ArrayList();
+            for (int i = 0; i < Table.getRowCount(); i++) {
+                Products.add(new Producto(Table.getValueAt(i, 0).toString(),
+                        Table.getValueAt(i, 1).toString(),
+                        Table.getValueAt(i, 2).toString(),
+                        Table.getValueAt(i, 3).toString(),
+                        Table.getValueAt(i, 4).toString(),
+                        Table.getValueAt(i, 5).toString()));
+            }
+            File archivonuevo = novo;
+            try {
+                escribirArchivo(archivonuevo);
+            } catch (IOException ex) {
+                Logger.getLogger(New1.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        bw.close();
-        fw.close();
     }
 
     public void puntoClear() {
-
+        LlenarTabla0();
     }
 
     public void puntoRefresh() {
-
+        LlenarArbol();
     }
 
     @SuppressWarnings("unchecked")
@@ -188,6 +210,11 @@ public class New1 extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
 
         jMenuItem8.setText("Clear Table");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         SubMenu1Tabla.add(jMenuItem8);
 
         JPopMenu_Loadfile.setText("Load File");
@@ -199,6 +226,11 @@ public class New1 extends javax.swing.JFrame {
         SubMenu2Arbol.add(JPopMenu_Loadfile);
 
         JPopMenu_Refresh.setText("Refresh Trees");
+        JPopMenu_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JPopMenu_RefreshActionPerformed(evt);
+            }
+        });
         SubMenu2Arbol.add(JPopMenu_Refresh);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -246,6 +278,11 @@ public class New1 extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Impor File");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
@@ -379,7 +416,7 @@ public class New1 extends javax.swing.JFrame {
         Products = new ArrayList();
         for (int i = 0; i < Table.getRowCount(); i++) {
             Products.add(new Producto(Table.getValueAt(i, 0).toString(),
-                     Table.getValueAt(i, 1).toString(),
+                    Table.getValueAt(i, 1).toString(),
                     Table.getValueAt(i, 2).toString(),
                     Table.getValueAt(i, 3).toString(),
                     Table.getValueAt(i, 4).toString(),
@@ -392,6 +429,32 @@ public class New1 extends javax.swing.JFrame {
             Logger.getLogger(New1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        Scanner sc = null;
+        Products = new ArrayList();
+        String Pathing = JOptionPane.showInputDialog(this, "Ingrese el nombre");
+        File omo = new File(Pathing);
+        if (omo.exists()) {
+            try {
+                sc = new Scanner(omo);
+                sc.useDelimiter(",");
+                while (sc.hasNext()) {
+                    Products.add(new Producto(sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine()));
+                }
+            } catch (Exception ex) {
+            }
+            sc.close();
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void JPopMenu_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPopMenu_RefreshActionPerformed
+        LlenarArbol();
+    }//GEN-LAST:event_JPopMenu_RefreshActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        LlenarTablar();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
