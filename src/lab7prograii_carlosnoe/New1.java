@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
@@ -31,7 +32,6 @@ public class New1 extends javax.swing.JFrame {
         LlenarArbol();
     }
 
-    
     public void LlenarArbol() {
         DefaultMutableTreeNode Archivos = new DefaultMutableTreeNode("Archivos");
         File Mont = new File("./");
@@ -217,6 +217,11 @@ public class New1 extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem4.setText("New FIle");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Impor File");
@@ -347,6 +352,15 @@ public class New1 extends javax.swing.JFrame {
         cargarArchivo(patthing);
         LlenarTablar();
     }//GEN-LAST:event_JPopMenu_LoadfileActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TableModel Table = JT_ListaDeProductos.getModel();
+        Products = new ArrayList();
+        for (int i = 0; i < Table.getRowCount(); i++) {
+            Products.add(new Producto(((int) Table.getValueAt(i, 0)), Table.getValueAt(i, 1).toString(), ((int) Table.getValueAt(i, 2)), Double.parseDouble(Table.getValueAt(i, 3).toString()), ((int) Table.getValueAt(i, 4)), ((int) Table.getValueAt(i, 5))));
+        }
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
