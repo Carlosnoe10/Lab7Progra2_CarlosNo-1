@@ -107,9 +107,10 @@ public class New1 extends javax.swing.JFrame {
             for (Producto t : Products) {
                 bw.write(t.getID() + ",");
                 bw.write(t.getNombre() + ",");
+                bw.write(t.getCategory() + ",");
                 bw.write(t.getPrice() + ",");
                 bw.write(t.getAisle() + ",");
-                bw.write(t.getBin() + ",");
+                bw.write(t.getBin());
             }
             bw.flush();
         } catch (Exception ex) {
@@ -260,6 +261,11 @@ public class New1 extends javax.swing.JFrame {
                 "ID", "NAME", "CATEGORY", "Title 4"
             }
         ));
+        JT_ListaDeProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JT_ListaDeProductosMouseClicked(evt);
+            }
+        });
         JT_ListaDeProductos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 JT_ListaDeProductosKeyPressed(evt);
@@ -406,7 +412,9 @@ public class New1 extends javax.swing.JFrame {
     private void JPopMenu_LoadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPopMenu_LoadfileActionPerformed
         DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) JTree_ListarArchivos.getSelectionPath().getLastPathComponent();
         String zero = nodoSeleccionado.getUserObject().toString();
-        File patthing = new File(zero);
+        System.out.println(zero);
+        String[] spliteo = zero.split("\\.");
+        File patthing = new File(spliteo[1]);
         cargarArchivo(patthing);
         LlenarTablar();
     }//GEN-LAST:event_JPopMenu_LoadfileActionPerformed
@@ -455,6 +463,13 @@ public class New1 extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         LlenarTablar();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void JT_ListaDeProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JT_ListaDeProductosMouseClicked
+        if (evt.isMetaDown()) {
+            System.out.println(evt.getX() + " " + evt.getY());
+            SubMenu1Tabla.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_JT_ListaDeProductosMouseClicked
 
     /**
      * @param args the command line arguments
